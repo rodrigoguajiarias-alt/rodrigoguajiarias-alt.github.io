@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sabor de Mi Tierra - Restaurante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #fff7ec;
+        }
+        header {
+            background: #8b0000;
+            padding: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header img {
+            height: 60px;
+        }
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .contenedor {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+        }
+        .productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .item img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        button {
+            background: #8b0000;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #carrito {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        #carrito ul {
+            list-style: none;
+            padding: 0;
+        }
+        #carrito li {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        #whatsapp {
+            background: green;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo-sabores.png" alt="Logo Restaurante" />
+        <nav>
+            <a href="#menu">Menú</a>
+            <a href="#carrito">Carrito</a>
+        </nav>
+    </header><div class="contenedor">
+    <h1>Platos Típicos Bolivianos</h1>
+    <div id="menu" class="productos">
+        <div class="item">
+            <img src="saice.jpg" alt="Saice" />
+            <h3>Saice</h3>
+            <p>Bs 20</p>
+            <button onclick="agregarCarrito('Saice', 20)">Agregar</button>
+        </div>
+        <div class="item">
+            <img src="masaco.jpg" alt="Masaco" />
+            <h3>Masaco de plátano</h3>
+            <p>Bs 15</p>
+            <button onclick="agregarCarrito('Masaco de plátano', 15)">Agregar</button>
+        </div>
+        <div class="item">
+            <img src="pacu.jpg" alt="Pacu Frito" />
+            <h3>Pacu frito</h3>
+            <p>Bs 35</p>
+            <button onclick="agregarCarrito('Pacu frito', 35)">Agregar</button>
+        </div>
+        <div class="item">
+            <img src="masaco.jpg" alt="Masaco" />
+            <h3>Masaco de plátano</h3>
+            <p>Bs 15</p>
+            <button onclick="agregarCarrito('Masaco de plátano', 15)">Agregar</button>
+        </div>
+        <div class="item">
+            <img src="masaco.jpg" alt="Masaco" />
+            <h3>Masaco de plátano</h3>
+            <p>Bs 15</p>
+            <button onclick="agregarCarrito('Masaco de plátano', 15)">Agregar</button>
+        </div>
+        <div class="item">
+            <img src="masaco.jpg" alt="Masaco" />
+            <h3>Masaco de plátano</h3>
+            <p>Bs 15</p>
+            <button onclick="agregarCarrito('Masaco de plátano', 15)">Agregar</button>
+        </div>
+    </div>
+
+    <div id="carrito">
+        <h2>Carrito de Compras</h2>
+        <ul id="listaCarrito"></ul>
+        <h3>Total: Bs <span id="total">0</span></h3>
+        <a id="whatsapp" href="#" target="_blank">Pedir por WhatsApp</a>
+    </div>
+</div>
+
+<script>
+    let carrito = [];
+
+    function agregarCarrito(nombre, precio) {
+        carrito.push({ nombre, precio });
+        actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+        const lista = document.getElementById('listaCarrito');
+        const totalTexto = document.getElementById('total');
+        const whatsappLink = document.getElementById('whatsapp');
+
+        lista.innerHTML = '';
+        let total = 0;
+
+        carrito.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.nombre} - Bs ${item.precio}`;
+            lista.appendChild(li);
+            total += item.precio;
+        });
+
+        totalTexto.textContent = total;
+
+        let mensaje = 'Hola, quiero hacer un pedido:%0A';
+        carrito.forEach(i => {
+            mensaje += `- ${i.nombre}: Bs ${i.precio}%0A`;
+        });
+        mensaje += `%0ATotal: Bs ${total}`;
+
+        whatsappLink.href = `https://wa.me/59175895310?text=${mensaje}`;
+    }
+</script></body>
+</html>
